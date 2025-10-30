@@ -1,42 +1,22 @@
-import type { NextPage } from 'next';
+import AnimatedContentWrapper from '@/components/AnimatedContentWrapper';
 
-const ProcessStep = ({ number, title, description }: { number: string, title: string, description: string }) => (
-  <div className="text-center">
-    <div className="flex items-center justify-center h-16 w-16 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-400 font-bold text-2xl mx-auto mb-6">
-      {number}
-    </div>
-    <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
-    <p className="text-slate-400">{description}</p>
-  </div>
-);
-
-const ServicesPage: NextPage = () => {
+export default function Services() {
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-32">
-      <div className="max-w-4xl mx-auto text-center">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-amber-400 mb-12">
-          Our Process
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <ProcessStep
-            number="1"
-            title="Consultation"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          />
-          <ProcessStep
-            number="2"
-            title="Documentation"
-            description="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-          />
-          <ProcessStep
-            number="3"
-            title="Submission"
-            description="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-          />
+    <div className="flex flex-col items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8 text-gray-800">
+      <AnimatedContentWrapper>
+        <div className="max-w-3xl text-center">
+          <h1 className="text-5xl font-extrabold text-blue-700 mb-6">Our Comprehensive Services</h1>
+          <p className="text-lg leading-relaxed mb-6">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p className="text-lg leading-relaxed mb-6">
+            Nunc vel risus commodo, volutpat felis id, ultrices arcu. Sed in magna eu lectus posuere maximus. Curabitur at magna vel magna consectetur consectetur. Proin vel ante nec justo bibendum efficitur. Donec nec justo nec justo bibendum efficitur.
+          </p>
+          <p className="text-lg leading-relaxed">
+            Phasellus et nisl in nisl consectetur consectetur. Sed in magna eu lectus posuere maximus. Curabitur at magna vel magna consectetur consectetur. Proin vel ante nec justo bibendum efficitur. Donec nec justo nec justo bibendum efficitur.
+          </p>
         </div>
-      </div>
+      </AnimatedContentWrapper>
     </div>
   );
-};
-
-export default ServicesPage;
+}
