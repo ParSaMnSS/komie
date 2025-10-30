@@ -1,65 +1,99 @@
-import Image from "next/image";
+"use client";
+import Link from 'next/link';
+import React, { useRef } from 'react';
+
+const TrustCard = ({ title, description, icon }: { title: string, description: string, icon: React.ReactNode }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - left - width / 2) / (width / 2);
+    const y = (e.clientY - top - height / 2) / (height / 2);
+    cardRef.current.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale3d(1.05, 1.05, 1.05)`;
+  };
+
+  const onMouseLeave = () => {
+    if (!cardRef.current) return;
+    cardRef.current.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) scale3d(1, 1, 1)';
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      className="bg-slate-900/50 p-8 rounded-2xl border border-slate-800 transition-transform duration-300 ease-out"
+      style={{ transformStyle: 'preserve-3d' }}
+    >
+      <div className="flex items-center justify-center h-16 w-16 rounded-full bg-amber-400/10 mb-6 border border-amber-400/20 text-amber-400">
+        {icon}
+      </div>
+      <h3 className="text-2xl font-bold text-white mb-4">{title}</h3>
+      <p className="text-slate-400">{description}</p>
+    </div>
+  );
+};
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main>
+      {/* Animated Grid Background */}
+      <div className="animated-grid"></div>
+
+      {/* Hero Section */}
+      <section className="relative flex flex-col items-center justify-center min-h-screen text-center py-20 overflow-hidden">
+        <div className="animate-fadeInSlideUp" style={{ animationDelay: '0.2s' }}>
+          <h1 className="text-5xl md:text-7xl font-extrabold leading-tight tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400">
+            Pioneering Your Path to Global Mobility.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="max-w-2xl mx-auto text-lg md:text-xl text-slate-400 mb-10">
+            We streamline the complexities of immigration, providing clear, expert guidance for your journey to a new beginning.
           </p>
+          <Link href="/services" passHref>
+            <button className="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold py-4 px-10 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg shadow-amber-500/20">
+              Start Your Eligibility Check
+            </button>
+          </Link>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      </section>
+
+      {/* Trust Grid Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8" style={{ perspective: '1000px' }}>
+            <TrustCard
+              title="Consultation"
+              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+              icon={<svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.745A9.863 9.863 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <TrustCard
+              title="Documents"
+              description="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+              icon={<svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>}
+            />
+            <TrustCard
+              title="Submission"
+              description="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+              icon={<svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>}
+            />
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative bg-slate-900 py-20">
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+          <h2 className="text-4xl font-bold text-white mb-4">Ready to Start Your Journey?</h2>
+          <p className="text-lg text-slate-400 mb-8">Let&apos;s make your global ambitions a reality. Get in touch today.</p>
+          <Link href="/contact" passHref>
+            <button className="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold py-4 px-10 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg shadow-amber-500/20">
+              Contact Us
+            </button>
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }
