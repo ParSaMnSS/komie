@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} font-sans bg-slate-950 text-slate-100`}
+        className={`${inter.variable} font-sans bg-slate-950 text-slate-100 overflow-x-hidden`}
       >
         <header
           className={`sticky top-0 z-50 transition-all duration-300 ${
@@ -46,7 +46,7 @@ export default function RootLayout({
               : "h-24 bg-slate-950/80 backdrop-blur-xl"
           }`}
         >
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
+          <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 h-full">
             <div className="flex items-center justify-between h-full">
               <div className="flex-shrink-0">
                 <Link href="/" className="text-3xl font-bold text-white">
